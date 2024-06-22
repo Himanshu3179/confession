@@ -1,8 +1,19 @@
+
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lobster, Satisfy, Cabin_Sketch, Permanent_Marker, Kaushan_Script } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
+import Background from "@/components/Background";
 
 const inter = Inter({ subsets: ["latin"] });
+export const lobster = Lobster({ weight: "400", subsets: ["latin"] });
+export const satisfy = Satisfy({ subsets: ["latin"], weight: "400" });
+const cabin = Cabin_Sketch({ weight: "400", subsets: ["latin"] });
+export const permanent = Permanent_Marker({ weight: "400", subsets: ["latin"] });
+export const kaushan = Kaushan_Script({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +27,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          <div className="min-h-screen  max-w-screen overflow-hidden relative">
+            <Navbar />
+            {children}
+            <Background />
+          </div>
+          <Footer />
+          <Toaster />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
