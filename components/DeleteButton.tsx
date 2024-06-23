@@ -31,13 +31,14 @@ export function DeleteButton(
                     id
                 })
             })
-
             const data = await res.json()
+            console.log("data:", data);
             if (res.ok) {
                 toast({
                     title: 'Confession deleted successfully',
                     description: data.message,
                 })
+
                 window.location.reload()
             }
             else {
@@ -47,7 +48,6 @@ export function DeleteButton(
                     variant: 'destructive'
                 })
             }
-
         } catch (error) {
             toast({
                 title: 'Error',

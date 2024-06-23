@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 const satisfy = Satisfy({ subsets: ["latin"], weight: "400" });
 import { Skeleton } from "@/components/ui/skeleton"
-import { revalidatePath } from 'next/cache'
 
 const Component = (
     { params }: { params: { name: string } }
@@ -68,7 +67,6 @@ const Component = (
                     title: 'Success',
                     description: data.message,
                 })
-                revalidatePath('/sent')
                 router.push('/sent')
             } else {
                 toast({

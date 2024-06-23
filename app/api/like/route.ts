@@ -1,7 +1,7 @@
 import { getUserId } from "@/app/actions";
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
-import { revalidatePath } from "next/cache";
+
 export async function POST(req: Request) {
   try {
     const userId = await getUserId();

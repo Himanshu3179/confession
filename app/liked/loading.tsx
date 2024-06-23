@@ -9,7 +9,6 @@ const loading = () => {
             <p className='text-rose-500 text-4xl font-serif text-center'>
                 You have Liked these confessions
             </p>
-
             <div className='
             grid
             grid-cols-1

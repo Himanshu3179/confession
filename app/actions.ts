@@ -611,6 +611,7 @@ export async function deleteConfession(id: string) {
   try {
     const userId = await getUserId();
     if (!userId) {
+      console.log("User not found");
       return false;
     }
     const confession = await db.confession.findUnique({
@@ -619,6 +620,7 @@ export async function deleteConfession(id: string) {
       },
     });
     if (!confession || confession.fromId !== userId) {
+      console.log("Confession not found or user is not the author");
       return false;
     }
 
@@ -632,9 +634,10 @@ export async function deleteConfession(id: string) {
     // Delete the confession
     await db.confession.delete({
       where: {
-        id,
+        id, 
       },
     });
+    console.log("Confession deleted successfully");
     return true;
   } catch (error) {
     console.error(error);

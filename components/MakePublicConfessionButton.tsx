@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
+import { CirclePlus } from 'lucide-react'
 
 const MakePublicConfessionButton = () => {
     return (
@@ -9,8 +10,11 @@ const MakePublicConfessionButton = () => {
         >
             <Link
                 href="/confess"
-                className={`${buttonVariants({ variant: 'default' })} shadow-lg`}
+                className={`${buttonVariants({ variant: 'default' })} shadow-lg
+                    gap-2
+                `}
             >
+                <CirclePlus size={20} />
                 Make a public confession
             </Link>
         </div>
