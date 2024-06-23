@@ -83,7 +83,9 @@ const SignUpForm = () => {
                             <FormItem>
                                 <FormLabel>name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='johndoe' {...field} />
+                                    <Input placeholder='johndoe' {...field}
+                                        className='bg-transparent/50'
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -96,7 +98,9 @@ const SignUpForm = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='mail@example.com' {...field} />
+                                    <Input placeholder='mail@example.com' {...field}
+                                        className='bg-transparent/50'
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -112,6 +116,7 @@ const SignUpForm = () => {
                                     <Input
                                         type='password'
                                         placeholder='Enter your password'
+                                        className='bg-transparent/50'
                                         {...field}
                                     />
                                 </FormControl>
@@ -129,6 +134,7 @@ const SignUpForm = () => {
                                     <Input
                                         placeholder='Re-Enter your password'
                                         type='password'
+                                        className='bg-transparent/50'
                                         {...field}
                                     />
                                 </FormControl>
@@ -146,11 +152,11 @@ const SignUpForm = () => {
             <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>
                 or
             </div>
-            <GoogleSignInButton/>
-                
-            
-            <p className='text-center text-sm text-muted-foreground mt-2'>
-                If you don&apos;t have an account, please&nbsp;
+            <GoogleSignInButton />
+
+
+            <p className='text-center text-sm text-muted-foreground mt-4'>
+                Already have an account?{' '}
                 <Link className='text-blue-500 hover:underline' href='/signin'>
                     Sign in
                 </Link>

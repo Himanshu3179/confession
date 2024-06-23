@@ -45,7 +45,7 @@ const Sidebar = () => {
                 <SheetTrigger>
                     <Menu />
                 </SheetTrigger>
-                <SheetContent side={"left"} className='bg-secondary/50'>
+                <SheetContent side={"left"} className='bg-secondary/60'>
                     <SheetClose asChild >
                         <Link
                             href={'/'}

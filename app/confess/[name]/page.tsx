@@ -7,6 +7,9 @@ import { Satisfy } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 const satisfy = Satisfy({ subsets: ["latin"], weight: "400" });
+import { Skeleton } from "@/components/ui/skeleton"
+import { revalidatePath } from 'next/cache'
+
 const Component = (
     { params }: { params: { name: string } }
 ) => {
@@ -65,9 +68,8 @@ const Component = (
                     title: 'Success',
                     description: data.message,
                 })
-                router.push('/')
-                setContent('')
-                setIsAnonymous(true)
+                revalidatePath('/sent')
+                router.push('/sent')
             } else {
                 toast({
                     title: 'Error',
@@ -91,14 +93,19 @@ const Component = (
 
     if (checkingUser) {
         return (
-            <div className='flex flex-col justify-center items-center  pt-10 px-5'>
-                <div className='max-w-lg w-full flex flex-col items-center justify-center
-                    gap-2
-                '>
-                    <h1
-                        className='text-3xl text-center font-serif'
-                    >Loading...</h1>
+            <div
+                className='w-full flex flex-col lg:px-20 px-5 py-10 gap-10'
+            >
+                <p className='text-white text-3xl font-serif text-center'>
+                    Make Confession to .....
+                </p>
+
+                <div className='flex flex-col gap-5'>
+                    <Skeleton className="h-44 max-w-lg w-full bg-secondary/50 mx-auto" />
+                    <Skeleton className="h-10 w-[300px] bg-secondary/50 mx-auto" />
+
                 </div>
+
             </div>
         )
     }
@@ -129,8 +136,10 @@ const Component = (
                 </h1>
 
                 <Textarea placeholder='I have a confession to make...'
-                    className={`mt-4 border-rose-500 ${satisfy.className} text-lg`}
-                    rows={5}
+                    className={`mt-4 border-rose-500 ${satisfy.className} text-lg
+                    bg-gradient-to-br from-rose-500/20 to-transparent
+                    `}
+                    rows={8}
                     value={content}
                     onInput={(e) => {
                         setContent(e.currentTarget.value)

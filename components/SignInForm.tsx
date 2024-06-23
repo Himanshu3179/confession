@@ -72,7 +72,9 @@ const SignInForm = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='mail@example.com' {...field} />
+                                    <Input placeholder='mail@example.com' {...field} 
+                                    className='bg-transparent/50'
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -88,6 +90,7 @@ const SignInForm = () => {
                                     <Input
                                         type='password'
                                         placeholder='Enter your password'
+                                        className='bg-transparent/50'
                                         {...field}
                                     />
                                 </FormControl>
@@ -109,7 +112,7 @@ const SignInForm = () => {
             </div>
             <GoogleSignInButton
             >Sign in with Google</GoogleSignInButton>
-            <p className='text-center text-sm text-muted-foreground mt-2'>
+            <p className='text-center text-sm text-muted-foreground mt-4'>
                 If you don&apos;t have an account, please&nbsp;
                 <Link className='text-blue-500 hover:underline' href='/signup'>
                     Sign up

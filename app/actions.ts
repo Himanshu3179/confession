@@ -173,8 +173,8 @@ export async function getAllConfessions(page: number) {
       orderBy: {
         createdAt: "desc",
       },
-      skip: (page - 1) * 10,
-      take: 10,
+      skip: (page - 1) * 9,
+      take: 9,
     });
     return confessions;
   } catch (error) {
@@ -195,7 +195,7 @@ export async function getTotalPagesAllConfessions() {
         toId: userId,
       },
     });
-    return Math.ceil(count / 10);
+    return Math.ceil(count / 9);
   } catch (error) {
     console.error(error);
     return 0;
@@ -221,7 +221,7 @@ export async function getTotalConfessions() {
   }
 }
 
-export async function getPublicConfessions() {
+export async function getPublicConfessions(page: number) {
   try {
     const confessions = await db.confession.findMany({
       where: {
@@ -244,6 +244,8 @@ export async function getPublicConfessions() {
       orderBy: {
         createdAt: "desc",
       },
+      skip: (page - 1) * 9,
+      take: 9,
     });
     const processedConfessions = confessions.map((confession) => {
       if (confession.isAnonymous) {
@@ -256,6 +258,23 @@ export async function getPublicConfessions() {
   } catch (error) {
     console.error(error);
     return null;
+  }
+}
+
+// getTotalPublicConfessions
+
+export async function getTotalPublicConfessions() {
+  try {
+    const count = await db.confession.count({
+      where: {
+        isPublic: true,
+        to: null,
+      },
+    });
+    return count;
+  } catch (error) {
+    console.error(error);
+    return 0;
   }
 }
 
@@ -317,8 +336,8 @@ export async function getLikedConfessions(page: number) {
       orderBy: {
         createdAt: "desc",
       },
-      skip: (page - 1) * 10,
-      take: 10,
+      skip: (page - 1) * 9,
+      take: 9,
     });
     return confessions;
   } catch (error) {
@@ -512,6 +531,13 @@ export async function getAllUsers() {
         },
       },
     });
+    // remove self
+
+    const username = await getName();
+    const index = users.findIndex((user) => user.name === username);
+    if (index !== -1) {
+      users.splice(index, 1);
+    }
     return users;
   } catch (error) {
     console.error(error);
@@ -550,13 +576,69 @@ export async function getSentConfessions(page: number) {
       orderBy: {
         createdAt: "desc",
       },
-      skip: (page - 1) * 10,
-      take: 10,
+      skip: (page - 1) * 9,
+      take: 9,
     });
     return confessions;
   } catch (error) {
     console.error(error);
     return null;
+  }
+}
+
+// get total of sent confessions
+
+export async function getTotalSentConfessions() {
+  try {
+    const userId = await getUserId();
+    if (!userId) {
+      return 0;
+    }
+    const count = await db.confession.count({
+      where: {
+        fromId: userId,
+      },
+    });
+    return count;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
+}
+
+// delete confession with id also verify that userId is same as fromId
+export async function deleteConfession(id: string) {
+  try {
+    const userId = await getUserId();
+    if (!userId) {
+      return false;
+    }
+    const confession = await db.confession.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!confession || confession.fromId !== userId) {
+      return false;
+    }
+
+    // Delete associated likes
+    await db.like.deleteMany({
+      where: {
+        confessionId: id,
+      },
+    });
+
+    // Delete the confession
+    await db.confession.delete({
+      where: {
+        id,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
 

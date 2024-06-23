@@ -26,7 +26,7 @@ const page = async (
     }
 
     const totalCount = await getTotalLikedConfessions()
-    const totalPages = Math.ceil(totalCount / 10)
+    const totalPages = Math.ceil(totalCount / 9)
 
 
     return (

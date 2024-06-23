@@ -30,10 +30,13 @@ export function IdentitySwitcher(
     const [content, setContent] = useState<string>('')
     const [isAnonymous, setIsAnonymous] = useState<boolean>(true)
     const [isPublic, setIsPublic] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
     const router = useRouter()
     const { toast } = useToast()
     const handleConfession = async () => {
+
         try {
+            setLoading(true)
             const res = await fetch('/api/confess', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -49,7 +52,7 @@ export function IdentitySwitcher(
                     title: 'Confession created successfully',
                     description: data.message,
                 })
-                router.push('/public')
+                router.push('/sent')
             } else {
                 toast({
                     title: 'Error',
@@ -65,6 +68,9 @@ export function IdentitySwitcher(
                 description: 'Internal Server Error',
                 variant: 'destructive'
             })
+        }
+        finally {
+            setLoading(false)
         }
     }
 
@@ -89,14 +95,25 @@ export function IdentitySwitcher(
                         <CardTitle>Confess Anonymously 🤫</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
+
                         <Textarea placeholder='I have a confession to make...'
-                            className={`mt-4 border-rose-500 ${satisfy.className} text-lg`}
+                            className={`mt-4 border-rose-500 ${satisfy.className} text-lg
+                                bg-gradient-to-br from-rose-500/20 to-transparent
+                            `}
                             rows={8}
                             onInput={(e) => {
                                 setContent(e.currentTarget.value)
                             }}
-
                         />
+                        {/* <div
+                                className="absolute bottom-0 right-0
+                                    w-20 h-20 rounded-full
+                                    bg-rose-500 
+                                    blur-[50px]
+                                    
+                                "
+                            /> */}
+
                         <p className="text-sm text-muted-foreground mt-2">
                             Your identity will be kept secret
                         </p>
@@ -109,7 +126,10 @@ export function IdentitySwitcher(
 
                         <Button className="ml-auto"
                             onClick={handleConfession}
-                        >Confess</Button>
+                            disabled={loading}
+                        >
+                            {loading ? 'Confessing...' : 'Confess'}
+                        </Button>
                     </CardFooter>
                 </Card>
             </TabsContent>
@@ -125,7 +145,9 @@ export function IdentitySwitcher(
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <Textarea placeholder='I have a confession to make...'
-                            className={`mt-4 border-rose-500 ${satisfy.className} text-lg`}
+                            className={`mt-4 border-rose-500 ${satisfy.className} text-lg
+                            bg-gradient-to-br from-rose-500/20 to-transparent
+                            `}
                             rows={8}
                             onInput={(e) => {
                                 setContent(e.currentTarget.value)
@@ -142,7 +164,10 @@ export function IdentitySwitcher(
                         /> */}
                         <Button className="ml-auto"
                             onClick={handleConfession}
-                        >Confess</Button>
+                            disabled={loading}
+                        >
+                            {loading ? 'Confessing...' : 'Confess'}
+                        </Button>
                     </CardFooter>
                 </Card>
             </TabsContent>

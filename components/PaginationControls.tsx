@@ -57,9 +57,16 @@ const PaginationControls = (
             replace(`${pathname}?${params.toString()}`);
             return;
         }
+        if (currentPage === 2) {
+            const params = new URLSearchParams(searchParams);
+            params.delete('page');
+            replace(`${pathname}?${params.toString()}`);
+            return;
+        }
         const params = new URLSearchParams(searchParams);
         params.set('page', String(currentPage - 1));
         replace(`${pathname}?${params.toString()}`);
+
     };
 
     return (

@@ -1,10 +1,19 @@
 import PaginationControls from '@/components/PaginationControls'
 import React from 'react'
-import { getSentConfessions } from '../actions';
+import { getSentConfessions, getTotalSentConfessions } from '../actions';
 import SentConfessionCard from '@/components/SentConfessionCard';
 
-const page = async () => {
-    const sentConfessions = await getSentConfessions(1);
+const page = async (
+    {
+        searchParams,
+    }: {
+        searchParams?: {
+            page?: string;
+        };
+    }
+) => {
+    const currentPage = Number(searchParams?.page) || 1;
+    const sentConfessions = await getSentConfessions(currentPage);
 
     if (!sentConfessions) {
         return (
@@ -16,7 +25,8 @@ const page = async () => {
         )
     }
 
-
+    const totalCount = await getTotalSentConfessions()
+    const totalPages = Math.ceil(totalCount / 9)
 
     return (
         <div className='py-10 
@@ -45,7 +55,7 @@ const page = async () => {
                 }
 
             </div>
-            <PaginationControls totalPages={2} />
+            <PaginationControls totalPages={totalPages} />
         </div>
     )
 }

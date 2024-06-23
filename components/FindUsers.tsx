@@ -5,24 +5,9 @@ import { getAllUsers } from '@/app/actions'
 import { ScrollArea } from './ui/scroll-area'
 import SearchUsers from './SearchUsers'
 
-const FindUsers = async (
-    {
-        searchParams,
-    }: {
-        searchParams?: {
-            query?: string;
-        };
-    }
-) => {
+const FindUsers = async () => {
     const users = await getAllUsers()
     if (!users) return null
-
-    const filteredUsers = users.filter((user) => {
-        if (!searchParams?.query) return true
-        return user.name.includes(searchParams.query)
-    })
-
-    
 
     return (
         <div className='w-full space-y-5'>
@@ -35,7 +20,7 @@ const FindUsers = async (
                 <ScrollArea className="h-[400px]  w-full rounded-md  mt-5 ">
                     <div className='flex flex-col gap-4'>
                         {
-                            filteredUsers.map((user) => (
+                            users.map((user) => (
                                 <UserCard
                                     key={user.name}
                                     name={user.name}

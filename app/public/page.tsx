@@ -1,10 +1,21 @@
 import React from 'react'
-import { getPublicConfessions, getUserId } from '../actions';
+import { getPublicConfessions, getTotalPublicConfessions, getUserId } from '../actions';
 import PublicConfessionCard from '@/components/PublicConfessionCard';
 import MakePublicConfessionButton from '@/components/MakePublicConfessionButton';
+import PaginationControls from '@/components/PaginationControls';
 
-const page = async () => {
-    const allConfessions = await getPublicConfessions();
+const page = async (
+    {
+        searchParams,
+    }: {
+        searchParams?: {
+            page?: string;
+        };
+    }
+) => {
+    const currentPage = Number(searchParams?.page) || 1;
+
+    const allConfessions = await getPublicConfessions(currentPage);
     if (!allConfessions) {
         return (
             <div>
@@ -16,6 +27,10 @@ const page = async () => {
     }
     const userId = await getUserId();
 
+    const totalCount = await getTotalPublicConfessions()
+    const totalPages = Math.ceil(totalCount / 9)
+
+
     return (
         <div className='py-10 flex flex-col items-center gap-5
         lg:px-10 px-5
@@ -25,6 +40,8 @@ const page = async () => {
             <div className='
                 mt-5
                 flex flex-col gap-2
+                w-full
+                items-center
             '>
 
                 {
@@ -42,6 +59,7 @@ const page = async () => {
                 }
             </div>
             <MakePublicConfessionButton />
+            <PaginationControls totalPages={totalPages} />
         </div>
     )
 }

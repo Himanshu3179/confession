@@ -31,7 +31,7 @@ const PublicConfessionCard = (
 
 
     return (
-        <div className='max-w-md w-full bg-secondary p-5 rounded-lg flex flex-col gap-5' >
+        <div className='max-w-md w-full bg-secondary/50 border border-rose-500 p-5 rounded-lg flex flex-col gap-5' >
             <div className={`flex gap-5`}>
                 {
                     from && (

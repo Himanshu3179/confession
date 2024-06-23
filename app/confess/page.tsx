@@ -8,6 +8,7 @@ import FindUsers from '@/components/FindUsers';
 const page = async (
 
 ) => {
+    
     const username = await getName();
 
     if (!username) return (

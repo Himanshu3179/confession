@@ -31,7 +31,9 @@ const PrivateConfessionCard = async (
 ) => {
     const userId = await getUserId()
     return (
-        <div className='p-5 rounded-md w-full max-w-md mx-auto bg-secondary/50 h-52 flex flex-col gap-5'>
+        <div className='p-5 rounded-md w-full max-w-md mx-auto bg-secondary/50 
+        border border-rose-500
+        h-52 flex flex-col gap-5'>
             <ScrollArea className="h-full w-full rounded-md text-justify relative">
                 <p
                     className={`overflow-ellipsis overflow-hidden pr-3 pb-10 ${content.length > 100 ? 'text-overflow' : ''}

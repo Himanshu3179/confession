@@ -11,6 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ModeToggle } from './ModeToggle';
 
 
 export async function LoginButton() {
@@ -40,6 +41,9 @@ export async function LoginButton() {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>{name}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <div className='lg:hidden'>
+                        <ModeToggle />
+                    </div>
                     <Link
                         href={'/profile'}
                     >
@@ -65,6 +69,7 @@ export async function LoginButton() {
                             Sign Out
                         </DropdownMenuItem>
                     </Link>
+
                 </DropdownMenuContent>
             </DropdownMenu>
         </div >

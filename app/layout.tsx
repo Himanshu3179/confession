@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Background from "@/components/Background";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 export const lobster = Lobster({ weight: "400", subsets: ["latin"] });
@@ -35,9 +36,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
 
-          <div className="min-h-screen  max-w-screen overflow-hidden relative">
+          <div className="min-h-screen  max-w-screen overflow-hidden relative 
+             
+          ">
             <Navbar />
-            {children}
+            <Suspense fallback={<div>Loading...</div>}>
+              {children}
+            </Suspense>
             <Background />
           </div>
           <Footer />

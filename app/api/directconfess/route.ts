@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         fromId,
         toId,
         isAnonymous,
-        isPublic: false,
+        isPublic: false,  
       },
     });
 

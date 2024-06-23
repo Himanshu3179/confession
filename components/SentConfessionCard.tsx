@@ -7,6 +7,7 @@ import LikeButton from './LikeButton';
 import { getName, getUserId } from '@/app/actions';
 import Link from 'next/link';
 import { satisfy } from '@/app/layout';
+import { DeleteButton } from './DeleteButton';
 
 const SentConfessionCard = async (
   {
@@ -38,7 +39,9 @@ const SentConfessionCard = async (
   const username = await getName()
 
   return (
-    <div className='p-5 rounded-md w-full max-w-md mx-auto bg-secondary/50 h-64 flex flex-col gap-5'>
+    <div className='p-5 rounded-md w-full max-w-md mx-auto bg-secondary/50 
+    border border-rose-500
+    h-64 flex flex-col gap-5'>
       <ScrollArea className="h-full w-full rounded-md text-justify relative">
         <p
           className={`overflow-ellipsis overflow-hidden pr-3 pb-10 ${content.length > 100 ? 'text-overflow' : ''}
@@ -87,11 +90,11 @@ const SentConfessionCard = async (
               <VenetianMask size={15} />
               Anonymous
             </Badge>
-            : <Badge  className='flex gap-2 items-center justify-center'>
+            : <Badge className='flex gap-2 items-center justify-center'>
               <UserRound size={15} />
               Not Anonymous
             </Badge>
-            
+
         }
         <div className='flex gap-3'>
           <Share className="" size={20} />
@@ -104,10 +107,12 @@ const SentConfessionCard = async (
           />
         </div>
       </div>
-
-      <p className='mx-auto text-sm text-muted-foreground'>
-        {formatTimeAgo(createdAt)}
-      </p>
+      <div className='flex justify-between'>
+        <p className=' text-sm text-muted-foreground'>
+          {formatTimeAgo(createdAt)}
+        </p>
+        <DeleteButton id={id} />
+      </div>
 
 
     </div >
