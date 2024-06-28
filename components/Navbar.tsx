@@ -3,10 +3,9 @@ import Link from "next/link"
 // import { LoginButton } from "./LoginButton"
 import NavLinks from "./NavLinks"
 import Sidebar from "./Sidebar"
-import { ModeToggle } from "./ModeToggle"
 import { LoginButton } from "./LoginButton"
 import { kaushan } from "@/app/layout"
-import { Activity, Heart } from "lucide-react"
+import { Heart } from "lucide-react"
 
 const Navbar = () => {
     return (
@@ -20,7 +19,6 @@ const Navbar = () => {
                 <Link
                     href={'/'}
                     className="font-bold text-xl flex justify-center items-center ">
-                        
                     Confess Your Heart <sup className="ml-2
                         rotate-12
                         transform
@@ -29,9 +27,9 @@ const Navbar = () => {
                         ease-in-out
                         hover:rotate-45
 
-                    "><Heart color="red" 
-                        fill="red"
-                    size={15}/></sup>
+                    "><Heart color="red"
+                            fill="red"
+                            size={15} /></sup>
                 </Link>
             </div>
 

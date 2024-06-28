@@ -7,7 +7,7 @@ import LikeButton from './LikeButton';
 import { getUserId } from '@/app/actions';
 import Link from 'next/link';
 import { satisfy } from '@/app/layout';
-
+import DownloadShare from './DownloadShare';
 
 const PrivateConfessionCard = async (
     {
@@ -41,7 +41,7 @@ const PrivateConfessionCard = async (
                     `}
                 >&quot;{content}&quot;</p>
 
-                {content.length > 100 && (
+                {content.length > 180 && (
                     <div className='absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-secondary to-transparent'></div>
                 )}
 
@@ -69,13 +69,19 @@ const PrivateConfessionCard = async (
                         {from ? from : 'Anonymous'}
                     </Badge>
                 }
-                <p className=''>
+                <p className='text-sm text-muted-foreground'>
                     {formatTimeAgo(createdAt)}
                 </p>
                 {/* <Heart className="text-rose-500" size={20} /> */}
 
                 <div className='flex gap-3'>
-                    <Share className="" size={20} />
+                    <DownloadShare
+                        id={id}
+                        content={content}
+                        createdAt={createdAt}
+                        from={from}
+                    />
+
                     {/* <ShareButton
                         confessionId={id}
                     /> */}

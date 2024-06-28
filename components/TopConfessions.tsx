@@ -5,7 +5,6 @@ import PrivateConfessionCard from './PrivateConfessionCard'
 
 const TopConfessions = async () => {
     const confession = await getTopConfessions()
-
     if (!confession || confession.length === 0) {
         return (
             <div
@@ -49,8 +48,6 @@ const TopConfessions = async () => {
             ">
                 Top Confessions
             </p>
-
-
             {
                 confession.map((confession) => (
                     <PrivateConfessionCard

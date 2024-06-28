@@ -67,7 +67,7 @@ const Component = (
                     title: 'Success',
                     description: data.message,
                 })
-                router.push('/sent')
+                router.push('/success')
             } else {
                 toast({
                     title: 'Error',
@@ -99,8 +99,8 @@ const Component = (
                 </p>
 
                 <div className='flex flex-col gap-5'>
-                    <Skeleton className="h-44 max-w-lg w-full bg-secondary/50 mx-auto" />
-                    <Skeleton className="h-10 w-[300px] bg-secondary/50 mx-auto" />
+                    <Skeleton className="h-44 max-w-lg w-full bg-secondary/50 mx-auto border border-rose-500" />
+                    <Skeleton className="h-10 w-[300px] bg-secondary/50 mx-auto border border-rose-500" />
 
                 </div>
 

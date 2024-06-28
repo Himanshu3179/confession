@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { buttonVariants } from '@/components/ui/button'
-import { getName, isAdmin } from '@/app/actions'
-import LogoutButton from '@/components/LogoutButton';
+import { getImage, getName, isAdmin } from '@/app/actions'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,10 +11,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ModeToggle } from './ModeToggle';
+import Image from 'next/image'
 
 
 export async function LoginButton() {
     const name = await getName();
+    const image = await getImage()
     if (!name) {
         return (
             <div>
@@ -33,9 +34,19 @@ export async function LoginButton() {
         <div>
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <div className="rounded-full w-12 h-12 bg-rose-500 text-white flex justify-center items-center">
-                        {name.charAt(0).toUpperCase()}
-                    </div>
+                    {
+                        image
+                            ? <Image
+                                src={image}
+                                alt='profile'
+                                className=' rounded-full'
+                                width={40}
+                                height={40}
+                            />
+                            :
+                            <div className="rounded-full w-12 h-12 bg-rose-500 text-white flex justify-center items-center">
+                                {name.charAt(0).toUpperCase()}
+                            </div>}
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent>

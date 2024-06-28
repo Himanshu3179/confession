@@ -1,5 +1,6 @@
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react"
 import Link from "next/link"
+import { kaushan } from "@/app/layout"
 
 const Footer = () => {
     const socialLinks = [
@@ -26,18 +27,17 @@ const Footer = () => {
     ]
     return (
         <div className="flex flex-col md:flex-row bg-secondary/50 justify-between px-4 md:px-10 py-4 md:py-10">
-            <div className="flex flex-col justify-between md:justify-evenly
+            <div className={`flex flex-col justify-between md:justify-evenly
             items-center gap-5 md:gap-0 md:flex-row w-full md:w-1/3
-                ">
-                <div>
+            ${kaushan.className}
+                `}>
+                <div className="text-2xl">
                     Confess Your Heart
                 </div>
                 <div className="flex gap-5">
                     {/* socialLinks */}
                     {socialLinks.map((socialLink, index) => (
-                        <Link href={socialLink.link} key={index} className="flex items-center p-1 rounded-full bg-neutral-200
-                            
-                        ">
+                        <Link href={socialLink.link} key={index} className="flex items-center p-1 rounded-full bg-neutral-200">
                             {socialLink.icon}
                         </Link>
                     ))}

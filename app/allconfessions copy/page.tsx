@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { getAllConfessions, getTotalConfessions, getTotalPagesAllConfessions } from '../actions'
+import { getAllConfessions, getTotalConfessions, getTotalPagesAllConfessions } from '@/app/actions'
 import PrivateConfessionCard from '@/components/PrivateConfessionCard';
 import PaginationControls from '@/components/PaginationControls';
 
@@ -28,7 +28,7 @@ const page = async (
 
 
     const totalCount = await getTotalConfessions()
-    const totalPages = Math.ceil(totalCount / 9)    
+    const totalPages = Math.ceil(totalCount / 9)
 
     return (
         <div className='py-10 

@@ -7,7 +7,20 @@ import SearchUsers from './SearchUsers'
 
 const FindUsers = async () => {
     const users = await getAllUsers()
-    if (!users) return null
+    if (!users || users.length === 0) return (
+        <div className='w-full space-y-5'>
+            <p className="font-serif text-4xl text-blue-500 text-center">
+                Find Users
+            </p>
+
+            <div className='bg-secondary/70 p-5 rounded-lg w-full '>
+                <p>
+                    No users found ://
+                </p>
+            </div>
+        </div>
+
+    )
 
     return (
         <div className='w-full space-y-5'>
@@ -25,6 +38,7 @@ const FindUsers = async () => {
                                     key={user.name}
                                     name={user.name}
                                     confessions={user._count.receivedConfessions}
+                                    image={user.image}
                                 />
                             ))
                         }

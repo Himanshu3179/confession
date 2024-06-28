@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip"
 import { useToast } from './ui/use-toast'
 
-const CopyConfessionLink = (
+const   CopyConfessionLink = (
     { confessionLink }: { confessionLink: string }
 ) => {
 
@@ -41,9 +41,7 @@ const CopyConfessionLink = (
                     readOnly
                     className='italic  text-sm text-muted-foreground w-full 
                 border border-rose-500 
-                    bg-gradient-to-r from-rose-500/20 to-rose-200/20
-                    
-                    
+                    bg-gradient-to-r from-rose-500/20 to-rose-200/20 
                     '
                 />
             </div>

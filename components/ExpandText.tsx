@@ -17,7 +17,6 @@ const ExpandText = (
             {content.length > 200 && (
                 <button onClick={() => setIsExpanded(!isExpanded)}
                     className='text-rose-500 ml-auto w-fit text-sm
-                            
                     '
                 >
                     {isExpanded ? 'Read Less' : 'Read More...'}

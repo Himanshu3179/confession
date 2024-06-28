@@ -11,13 +11,13 @@ const loading = () => {
                     <p className="font-serif text-4xl text-rose-500 mx-auto">
                         Confess Here Publicly
                     </p>
-                    <Skeleton className="h-96 max-w-[500px] w-full mx-auto bg-secondary/50" />
+                    <Skeleton className="h-96 max-w-[500px] w-full mx-auto bg-secondary/50 border border-rose-500" />
                 </div>
                 <div className='mx-auto flex flex-col gap-5 w-full'>
                     <p className="font-serif text-4xl text-blue-500 text-center">
                         Find Users
                     </p>
-                    <Skeleton className="h-96 max-w-[500px] w-full mx-auto bg-secondary/50" />
+                    <Skeleton className="h-96 max-w-[500px] w-full mx-auto bg-secondary/50 border border-rose-500" />
                 </div>
             </div>
         </div >

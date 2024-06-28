@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel"
 import PrivateConfessionCard from './PrivateConfessionCard'
 import { getAllConfessions } from '@/app/actions';
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const UserConfession = async () => {
     let allConfessions = await getAllConfessions(1);
@@ -18,6 +19,7 @@ const UserConfession = async () => {
                 <p className='text-center text-muted-foreground'>
                     No confessions have been made yet. Copy your confession link and share it with your friends to see their confessions here.
                 </p>
+
             </div>
         )
     }
@@ -43,6 +45,11 @@ const UserConfession = async () => {
                 ))}
             </CarouselContent>
             <CarouselNext />
+            <p className="text-center text-muted-foreground flex  justify-center items-center gap-4 mt-3">
+                <ArrowLeft size={18} />
+                Swipe to see more confessions
+                <ArrowRight size={18} />
+            </p>
         </Carousel>
     )
 }

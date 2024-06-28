@@ -69,6 +69,10 @@ const PaginationControls = (
 
     };
 
+    if (totalPages < 2) {
+        return null
+    }
+
     return (
         <Pagination className="bg-neutral-50/10 mx-auto w-fit rounded-xl px-10 py-2">
             <PaginationContent>

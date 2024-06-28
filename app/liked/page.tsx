@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { getLikedConfessions, getTotalLikedConfessions } from '../actions'
+import { getLikedConfessions, getTotalLikedConfessions } from '@/app/actions'
 import PrivateConfessionCard from '@/components/PrivateConfessionCard';
 import PaginationControls from '@/components/PaginationControls';
 
@@ -15,6 +15,7 @@ const page = async (
 
     const currentPage = Number(searchParams?.page) || 1;
     const allConfessions = await getLikedConfessions(currentPage);
+
     if (!allConfessions || allConfessions.length === 0) {
         return (
             <div className='py-10 lg:px-10 px-5'>
@@ -45,7 +46,7 @@ const page = async (
                 <Suspense fallback={
                     <div>Loading...</div>
                 }>
-
+                    
                     {allConfessions.map((confession) => (
                         <PrivateConfessionCard
                             id={confession.id}

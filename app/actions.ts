@@ -16,6 +16,14 @@ export async function getUserDetails() {
       where: {
         email,
       },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        isAdmin: true,
+        image: true,
+      },
     });
     if (!user) {
       return null;
@@ -113,6 +121,20 @@ export async function getName() {
   }
 }
 
+// get image of the user
+export async function getImage() {
+  try {
+    const user = await getUserDetails();
+    if (!user) {
+      return null;
+    }
+    return user.image;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 // get confession link= t is mage of appurl+username
 
 export async function getConfessionLink() {
@@ -162,13 +184,17 @@ export async function getAllConfessions(page: number) {
       where: {
         toId: userId,
       },
-      include: {
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
         from: {
           select: {
             name: true,
           },
         },
         likes: true,
+        isAnonymous: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -176,7 +202,17 @@ export async function getAllConfessions(page: number) {
       skip: (page - 1) * 9,
       take: 9,
     });
-    return confessions;
+
+    // set from to null if it is anonymous
+
+    const processedConfessions = confessions.map((confession) => {
+      if (confession.isAnonymous) {
+        confession.from = null;
+      }
+      return confession;
+    });
+
+    return processedConfessions;
   } catch (error) {
     console.error(error);
     return null;
@@ -316,22 +352,27 @@ export async function getLikedConfessions(page: number) {
     if (!userId) {
       return null;
     }
-    const confessions = await db.confession.findMany({
+
+    const confessions = await db.like.findMany({
       where: {
-        toId: userId,
-        likes: {
-          some: {
-            userId,
-          },
-        },
+        userId,
       },
-      include: {
-        from: {
+      select: {
+        confession: {
           select: {
-            name: true,
+            id: true,
+            content: true,
+            createdAt: true,
+            from: {
+              select: {
+                name: true,
+              },
+            },
+            likes: true,
+            isAnonymous: true,
           },
         },
-        likes: true,
+        createdAt: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -339,7 +380,16 @@ export async function getLikedConfessions(page: number) {
       skip: (page - 1) * 9,
       take: 9,
     });
-    return confessions;
+
+    const processedConfessions = confessions.map((confession) => {
+      // if confession is anonymous then set from to null
+      if (confession.confession.isAnonymous) {
+        confession.confession.from = null;
+      }
+      return confession.confession;
+    });
+
+    return processedConfessions;
   } catch (error) {
     console.error(error);
     return null;
@@ -524,6 +574,7 @@ export async function getAllUsers() {
         _count: {
           select: { receivedConfessions: true },
         },
+        image: true,
       },
       orderBy: {
         receivedConfessions: {
@@ -634,7 +685,7 @@ export async function deleteConfession(id: string) {
     // Delete the confession
     await db.confession.delete({
       where: {
-        id, 
+        id,
       },
     });
     console.log("Confession deleted successfully");

@@ -1,6 +1,6 @@
 import PaginationControls from '@/components/PaginationControls'
 import React from 'react'
-import { getSentConfessions, getTotalSentConfessions } from '../actions';
+import { getSentConfessions, getTotalSentConfessions } from '@/app/actions';
 import SentConfessionCard from '@/components/SentConfessionCard';
 
 const page = async (

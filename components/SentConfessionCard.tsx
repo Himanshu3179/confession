@@ -8,6 +8,7 @@ import { getName, getUserId } from '@/app/actions';
 import Link from 'next/link';
 import { satisfy } from '@/app/layout';
 import { DeleteButton } from './DeleteButton';
+import DownloadShare from './DownloadShare';
 
 const SentConfessionCard = async (
   {
@@ -97,10 +98,15 @@ const SentConfessionCard = async (
 
         }
         <div className='flex gap-3'>
-          <Share className="" size={20} />
-          {/* <ShareButton
-                        confessionId={id}
-                    /> */}
+
+          <DownloadShare
+            id={id}
+            content={content}
+            createdAt={createdAt}
+            basePath='sent'
+            from={isAnonymous ? null : username}
+          />
+
           <LikeButton id={id}
             likes={likes}
             userId={userId}

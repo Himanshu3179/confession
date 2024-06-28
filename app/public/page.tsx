@@ -1,8 +1,11 @@
 import React from 'react'
-import { getPublicConfessions, getTotalPublicConfessions, getUserId } from '../actions';
+import { getPublicConfessions, getTotalPublicConfessions, getUserId } from '@/app/actions';
 import PublicConfessionCard from '@/components/PublicConfessionCard';
 import MakePublicConfessionButton from '@/components/MakePublicConfessionButton';
 import PaginationControls from '@/components/PaginationControls';
+import Link from 'next/link';
+import { CirclePlus } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
 
 const page = async (
     {
@@ -16,12 +19,25 @@ const page = async (
     const currentPage = Number(searchParams?.page) || 1;
 
     const allConfessions = await getPublicConfessions(currentPage);
-    if (!allConfessions) {
+    if (!allConfessions || allConfessions.length === 0) {
         return (
-            <div>
+            <div className='py-10 flex flex-col items-center gap-5
+        lg:px-10 px-5
+        relative
+        '>
+                <p className='text-rose-500 text-4xl font-serif text-center'>Public Confessions</p>
                 <p>
-                    No confessions found
+                    No confession found :/
                 </p>
+                <Link
+                    href="/confess"
+                    className={`${buttonVariants({ variant: 'default' })} shadow-lg
+                    gap-2
+                `}
+                >
+                    <CirclePlus size={20} />
+                    Make a public confession
+                </Link>
             </div>
         )
     }

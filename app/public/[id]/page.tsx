@@ -1,6 +1,7 @@
 import { getPublicConfessionById, getUserId } from '@/app/actions'
 import PublicConfessionCard from '@/components/PublicConfessionCard'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -10,8 +11,21 @@ const page = async (
     const confession = await getPublicConfessionById(params.id)
     if (!confession) {
         return (
-            <div>
-                <p>No confession found</p>
+            <div className='py-10 lg:px-10 px-5'>
+                <p className="font-serif text-4xl text-rose-500">
+                    No confession found
+                </p>
+
+                <Link href="/public"
+                    className={`${buttonVariants({ variant: 'default' })} px-16  flex gap-2 items-center justify-center 
+                        hover:gap-5 hover:transition-all 
+                        mt-5
+
+                    `}
+                >See Public Confessions
+                    <ArrowRight size={20} />
+                </Link>
+
             </div>
         )
     }

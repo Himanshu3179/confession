@@ -2,6 +2,8 @@
 import { Heart } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useToast } from './ui/use-toast'
+import { useRouter } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 const LikeButton = (
     { id, likes, userId }: {
@@ -18,7 +20,7 @@ const LikeButton = (
     const [isLiked, setIsLiked] = React.useState<boolean>(false)
     const [likeCount, setLikeCount] = React.useState<number>(likes.length)
     const { toast } = useToast()
-
+    const router = useRouter()
     useEffect(() => {
         if (userId && likes.some(like => like.userId === userId)) {
             setIsLiked(true);
@@ -49,6 +51,7 @@ const LikeButton = (
                     title: 'Like',
                     description: data.message
                 })
+
             } else {
                 setIsLiked(!isLiked);
                 setLikeCount(prevCount => isLiked ? prevCount + 1 : prevCount - 1); // Revert optimistic update
@@ -68,6 +71,7 @@ const LikeButton = (
                 variant: 'destructive'
             })
         }
+
     }
 
     return (

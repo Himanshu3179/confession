@@ -36,9 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
 
-          <div className="min-h-screen  max-w-screen overflow-hidden relative 
-             
-          ">
+          <div className="min-h-screen  max-w-screen overflow-hidden relative ">
             <Navbar />
             <Suspense fallback={<div>Loading...</div>}>
               {children}

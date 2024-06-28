@@ -32,7 +32,6 @@ const NavLinks = () => {
         }
     ]
     const pathname = usePathname();
-
     return (
         <div className='lg:flex gap-5 items-center hidden '>
             {Navlinks.map((link, index) => (

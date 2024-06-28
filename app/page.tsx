@@ -8,7 +8,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import { getAllConfessions, getConfessionLink, getTotalConfessions } from "@/app/actions";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+
 
 export default async function Home() {
   const confessionLink = await getConfessionLink();
@@ -64,11 +64,7 @@ export default async function Home() {
           }
         </div>
         <UserConfession />
-        <p className="text-center text-muted-foreground flex  justify-center items-center ">
-          <ArrowLeft size={20} />
-          Swipe to see more confessions
-          <ArrowRight size={20} />
-        </p>
+        
       </div>
       <div className="flex gap-5 w-full md:flex-row flex-col">
         <TopConfessions />

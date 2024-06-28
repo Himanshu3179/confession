@@ -13,9 +13,9 @@ const loading = () => {
             <div className='
             flex flex-col
             gap-3'>
-                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto" />
-                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto hidden md:block" />
-                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto hidden lg:block" />
+                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto border border-rose-500" />
+                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto hidden md:block border border-rose-500" />
+                <Skeleton className="h-52 max-w-md w-full bg-secondary/50 mx-auto hidden lg:block border border-rose-500" />
             </div>
 
         </div>

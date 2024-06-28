@@ -22,6 +22,7 @@ import { useState } from "react"
 import { useToast } from "./ui/use-toast"
 import { useRouter } from "next/navigation"
 import { Satisfy } from "next/font/google"
+import { revalidatePath } from "next/cache"
 const satisfy = Satisfy({ subsets: ["latin"], weight: "400" });
 
 export function IdentitySwitcher(
@@ -52,7 +53,8 @@ export function IdentitySwitcher(
                     title: 'Confession created successfully',
                     description: data.message,
                 })
-                router.push('/sent')
+                router.refresh()
+                router.push('/success')
             } else {
                 toast({
                     title: 'Error',
@@ -164,7 +166,6 @@ export function IdentitySwitcher(
                         /> */}
                         <Button className="ml-auto"
                             onClick={handleConfession}
-                            disabled={loading}
                         >
                             {loading ? 'Confessing...' : 'Confess'}
                         </Button>
