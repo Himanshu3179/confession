@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
-import { CirclePlus } from 'lucide-react'
+import { ArrowRight, CirclePlus } from 'lucide-react'
 
 const MakePublicConfessionButton = () => {
     return (
@@ -14,8 +14,8 @@ const MakePublicConfessionButton = () => {
                     gap-2
                 `}
             >
-                <CirclePlus size={20} />
-                Make a public confession
+                Make Confessions to others
+                <ArrowRight size={20} />
             </Link>
         </div>
     )

@@ -21,10 +21,10 @@ export async function LoginButton() {
         return (
             <div>
                 <Link
-                    href="/signin"
+                    href="/signup"
                     className={`${buttonVariants({ variant: 'default' })}`}
                 >
-                    Sign In
+                    Login
                 </Link>
             </div>
         )

@@ -70,7 +70,7 @@ const DownloadShare = (
         // This code will only run in the browser where `window` is defined
         setUrl(`${window.location.origin}/${basePath}/${id}`);
     }, [id, basePath]);
-
+    
     return (
         <Dialog>
             <DialogTrigger>

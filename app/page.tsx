@@ -6,16 +6,16 @@ import TopConfessions from "@/components/TopConfessions";
 import UserConfession from "@/components/UserConfession";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
-import { getAllConfessions, getConfessionLink, getTotalConfessions } from "@/app/actions";
+import { getAllConfessions, getName, getTotalConfessions } from "@/app/actions";
 import Link from "next/link";
 
 
 export default async function Home() {
-  const confessionLink = await getConfessionLink();
+  const username = await getName()
   const totalCOnfession = await getTotalConfessions()
 
 
-  if (!confessionLink) return (
+  if (!username) return (
     <div className="h-full w-full flex items-center justify-center pb-20">
       <div className="flex flex-col items-center justify-center gap-5">
         <Image src="/confession.png" width={300} height={300} alt="confession image" />
@@ -25,7 +25,7 @@ export default async function Home() {
           className={`${buttonVariants({ variant: 'default' })} px-16`}
         >Get Started</Link>
 
-        <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 text-muted-foreground'>
+        <div className='mx-auto  flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400 text-muted-foreground'>
           or
         </div>
         <Link href="/public"
@@ -43,7 +43,7 @@ export default async function Home() {
           This Is your confession link, share it with your friends
         </p>
         <CopyConfessionLink
-          confessionLink={confessionLink}
+          username={username}
         />
       </div>
       <div className="lg:px-10 px-5 space-y-5 ">
@@ -64,7 +64,7 @@ export default async function Home() {
           }
         </div>
         <UserConfession />
-        
+
       </div>
       <div className="flex gap-5 w-full md:flex-row flex-col">
         <TopConfessions />

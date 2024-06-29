@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { getAllConfessions, getConfessionLink, getTotalConfessions } from '@/app/actions'
+import { getAllConfessions, getName, getTotalConfessions } from '@/app/actions'
 import PrivateConfessionCard from '@/components/PrivateConfessionCard';
 import PaginationControls from '@/components/PaginationControls';
 import CopyConfessionLink from '@/components/CopyConfessionLink';
@@ -20,7 +20,7 @@ const page = async (
     const currentPage = Number(searchParams?.page) || 1;
     const allConfessions = await getAllConfessions(currentPage);
 
-    const confessionLink = await getConfessionLink();
+    const username = await getName()
 
 
 
@@ -34,9 +34,9 @@ const page = async (
                     Copy and Share this link to <br />Start seeing and receiving the confessions
                 </p>
 
-                {confessionLink &&
+                {username &&
                     <div className='w-full flex items-center justify-center mt-5'>
-                        <CopyConfessionLink confessionLink={confessionLink} />
+                        <CopyConfessionLink username={username} />
                     </div>
                 }
                 <div className='max-w-lg mx-auto my-2 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>

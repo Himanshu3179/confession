@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -12,10 +12,11 @@ import {
 } from "@/components/ui/tooltip"
 import { useToast } from './ui/use-toast'
 
-const   CopyConfessionLink = (
-    { confessionLink }: { confessionLink: string }
+const CopyConfessionLink = (
+    { username }: { username: string }
 ) => {
 
+    const [url, setUrl] = React.useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast()
     const handleCopy = () => {
@@ -28,6 +29,10 @@ const   CopyConfessionLink = (
         }
     }
 
+    useEffect(() => {
+        setUrl(`${window.location.origin}/confess/${username}`)
+    }, [username])
+
     return (
         <div className="flex items-center space-x-2 max-w-lg w-full">
             <div className="grid flex-1 gap-2">
@@ -37,7 +42,7 @@ const   CopyConfessionLink = (
                 <Input
                     ref={inputRef}
                     id="link"
-                    value={confessionLink}
+                    value={url}
                     readOnly
                     className='italic  text-sm text-muted-foreground w-full 
                 border border-rose-500 

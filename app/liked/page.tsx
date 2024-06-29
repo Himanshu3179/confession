@@ -2,6 +2,9 @@ import React, { Suspense } from 'react'
 import { getLikedConfessions, getTotalLikedConfessions } from '@/app/actions'
 import PrivateConfessionCard from '@/components/PrivateConfessionCard';
 import PaginationControls from '@/components/PaginationControls';
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const page = async (
     {
@@ -18,10 +21,20 @@ const page = async (
 
     if (!allConfessions || allConfessions.length === 0) {
         return (
-            <div className='py-10 lg:px-10 px-5'>
+            <div className='py-10 lg:px-10 px-5 flex flex-col gap-5 justify-center items-center'>
                 <p className='text-rose-500 text-4xl font-serif text-center'>
-                    No Liked confessions found
+                    You have not liked any confessions yet
                 </p>
+                <Link href="/public"
+                    className={`${buttonVariants({ variant: 'default' })} px-16  flex gap-2 items-center justify-center 
+                        hover:gap-5 hover:transition-all 
+                        mt-5
+                        w-fit
+                    `}
+                >See Public Confessions
+                    <ArrowRight size={20} />
+                </Link>
+
             </div>
         )
     }
@@ -46,7 +59,7 @@ const page = async (
                 <Suspense fallback={
                     <div>Loading...</div>
                 }>
-                    
+
                     {allConfessions.map((confession) => (
                         <PrivateConfessionCard
                             id={confession.id}

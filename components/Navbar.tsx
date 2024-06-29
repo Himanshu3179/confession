@@ -6,8 +6,10 @@ import Sidebar from "./Sidebar"
 import { LoginButton } from "./LoginButton"
 import { kaushan } from "@/app/layout"
 import { Heart } from "lucide-react"
+import { isAuthenticated } from "@/app/actions"
 
-const Navbar = () => {
+const Navbar = async () => {
+    const authenticated = await isAuthenticated()
     return (
         <div className={`flex justify-between w-full p-5 items-center border-b-2 shadow-md
         bg-secondary/50
@@ -34,7 +36,9 @@ const Navbar = () => {
             </div>
 
             <div className="flex gap-5 items-center">
-                <NavLinks />
+                <NavLinks
+                    authenticated={authenticated}
+                />
                 <LoginButton />
             </div>
         </div>

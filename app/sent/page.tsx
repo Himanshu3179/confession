@@ -2,6 +2,9 @@ import PaginationControls from '@/components/PaginationControls'
 import React from 'react'
 import { getSentConfessions, getTotalSentConfessions } from '@/app/actions';
 import SentConfessionCard from '@/components/SentConfessionCard';
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const page = async (
     {
@@ -15,12 +18,22 @@ const page = async (
     const currentPage = Number(searchParams?.page) || 1;
     const sentConfessions = await getSentConfessions(currentPage);
 
-    if (!sentConfessions) {
+    if (!sentConfessions || sentConfessions.length === 0) {
         return (
-            <div className='py-10 lg:px-10 px-5'>
+            <div className='py-10 lg:px-10 px-5 flex flex-col gap-5 justify-center items-center'>
                 <p className="font-serif text-4xl text-rose-500">
                     You have not sent any confessions yet ://
                 </p>
+                <Link href="/confess"
+                    className={`${buttonVariants({ variant: 'default' })} px-16  flex gap-2 items-center justify-center 
+                        hover:gap-5 hover:transition-all 
+                        mt-5
+
+                    `}
+                >Confess Here
+                    <ArrowRight size={20} />
+                </Link>
+
             </div>
         )
     }

@@ -35,7 +35,7 @@ const FormSchema = z
     });
 
 const ProfileForm = (
-    { confessionLink }: { confessionLink: string | null }
+    { username }: { username: string | null }
 ) => {
     const { toast } = useToast()
     const router = useRouter()
@@ -166,10 +166,10 @@ const ProfileForm = (
                         </FormItem>
 
                     </div>
-                    {confessionLink &&
-                        <div className='mt-5'>
+                    {username &&
+                        <div className='mt-5 flex flex-col gap-3'>
                             <Label>Copy your confession link</Label>
-                            <CopyConfessionLink confessionLink={confessionLink} />
+                            <CopyConfessionLink username={username} />
                         </div>
                     }
                     <p className='mt-6 text-sm flex gap-4'>

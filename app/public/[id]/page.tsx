@@ -8,6 +8,8 @@ import React from 'react'
 const page = async (
     { params }: { params: { id: string } }
 ) => {
+    // 1 sec delay
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     const confession = await getPublicConfessionById(params.id)
     if (!confession) {
         return (
@@ -41,8 +43,10 @@ const page = async (
                 userId={userId}
             />
             <Link href="/public"
-                className={`${buttonVariants({ variant: 'default' })} px-16 `}
-            >See More Public Confessions 🤭</Link>
+                className={`${buttonVariants({ variant: 'default' })} px-16 flex gap-2`}
+            >See More Public Confessions
+                <ArrowRight size={20} />
+            </Link>
 
         </div>
     )

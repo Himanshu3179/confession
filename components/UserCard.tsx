@@ -20,8 +20,10 @@ const UserCard = (
     return (
         <Link
             href={`/confess/${name}`}
-            className={`flex bg-neutral-50/10 py-3 px-10 rounded-xl gap-5 items-center cursor-pointer
-                hover:bg-card/100 transition duration-200 ease-in-out
+            className={`flex  py-3 px-10 rounded-xl gap-5 items-center cursor-pointer
+                transition duration-200 ease-in-out
+                bg-card
+                hover:bg-primary/20
                 ${lobster.className}
             `}>
             {

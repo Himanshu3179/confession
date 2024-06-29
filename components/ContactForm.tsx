@@ -13,66 +13,71 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import GoogleSignInButton from '@/components/GoogleSignInButton';
-import { signIn } from 'next-auth/react';
+
 import { redirect, useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
-import { useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 const FormSchema = z.object({
-    email: z.string().min(1, 'Email is required').email('Invalid email'),
-    password: z
-        .string()
-        .min(1, 'Password is required')
+    subject: z.string().min(1, 'Subject is required'),
+    message: z.string().min(1, 'Message is required'),
 });
 
-const SignInForm = () => {
+const ContactForm = () => {
     const { toast } = useToast()
-    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            email: '',
-            password: '',
+
         },
     });
 
     const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-        setLoading(true)
-        const signInData = await signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            redirect: false
-        });
-
-        if (signInData?.error) {
+        try {
+            const res = await fetch('/api/email', {
+                method: 'POST',
+                body: JSON.stringify(values),
+            })
+            if (res.ok) {
+                toast({
+                    title: "Success",
+                    description: "Email sent",
+                    variant: 'default'
+                })
+                // reset form after submission
+                form.reset()
+                router.push('/')
+            }
+            else {
+                toast({
+                    title: "Error",
+                    description: "Email not sent",
+                    variant: 'destructive'
+                })
+            }
+        } catch (error) {
             toast({
                 title: "Error",
-                description: "Invalid email or password",
+                description: "Email not sent",
                 variant: 'destructive'
             })
         }
-        else {
-            router.push('/')
-            router.refresh()
-        }
-        setLoading(false)
     };
 
     return (
-        <Form {...form}>
+        <Form {...form} >
+            <h1 className='text-2xl font-bold mb-5 text-center'>Give Feedback</h1>
             <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
                 <div className='space-y-2'>
                     <FormField
                         control={form.control}
-                        name='email'
+                        name='subject'
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>Subject</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='mail@example.com' {...field}
+                                    <Input placeholder='Title' {...field}
                                         className='bg-transparent/10'
                                     />
                                 </FormControl>
@@ -82,16 +87,15 @@ const SignInForm = () => {
                     />
                     <FormField
                         control={form.control}
-                        name='password'
+                        name='message'
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>Message</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        type='password'
-                                        placeholder='Enter your password'
-                                        className='bg-transparent/10'
+                                    <Textarea
+                                        placeholder='Message'
                                         {...field}
+                                        className='bg-transparent/10'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -100,25 +104,18 @@ const SignInForm = () => {
                     />
                 </div>
                 <Button className='w-full mt-6' type='submit'
-                    disabled={loading}
+                    disabled={form.formState.isSubmitting}
                 >
                     {
-                        loading ? 'Loading...' : 'Sign In'
+                        form.formState.isSubmitting
+                            ? 'Submitting...'
+                            : 'Submit'
                     }
                 </Button>
             </form>
-            <div className='mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>
-                or
-            </div>
-            <GoogleSignInButton />
-            <p className='text-center text-sm text-muted-foreground mt-4'>
-                If you don&apos;t have an account, please&nbsp;
-                <Link className='text-blue-500 hover:underline' href='/signup'>
-                    Sign up
-                </Link>
-            </p>
         </Form>
+
     );
 };
 
-export default SignInForm;
+export default ContactForm;

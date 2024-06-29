@@ -137,18 +137,18 @@ export async function getImage() {
 
 // get confession link= t is mage of appurl+username
 
-export async function getConfessionLink() {
-  try {
-    const username = await getName();
-    if (!username) {
-      return null;
-    }
-    return `${process.env.APP_URL}/confess/${username}`;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
+// export async function getConfessionLink() {
+//   try {
+//     const username = await getName();
+//     if (!username) {
+//       return null;
+//     }
+//     return `${process.env.APP_URL}/confess/${username}`;
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// }
 
 // get id from name
 
@@ -581,8 +581,8 @@ export async function getAllUsers() {
           _count: "desc",
         },
       },
+      take: 10,
     });
-    // remove self
 
     const username = await getName();
     const index = users.findIndex((user) => user.name === username);

@@ -27,8 +27,7 @@ const FindUsers = async () => {
             <p className="font-serif text-4xl text-blue-500 text-center">
                 Find Users
             </p>
-
-            <div className='bg-secondary/70 p-5 rounded-lg w-full '>
+            <div className='bg-secondary p-5 rounded-lg w-full '>
                 {/* <SearchUsers /> */}
                 <ScrollArea className="h-[400px]  w-full rounded-md  mt-5 ">
                     <div className='flex flex-col gap-4'>
